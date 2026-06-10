@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FitTrack AI</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="FitTrack AI workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">SDG 3 • Good Health and Well-being</p>
+            <h1>FitTrack AI</h1>
+          </div>
+          <div class="status-pill" id="healthScore">Health Score --</div>
+        </header>
+
+        <div class="layout">
+          <form class="panel profile-panel" id="healthForm">
+            <div class="panel-heading">
+              <h2>User Profile</h2>
+              <button class="icon-button" type="button" id="resetBtn" aria-label="Reset form" title="Reset form">
+                <span aria-hidden="true">↺</span>
+              </button>
+            </div>
+
+            <div class="field-grid">
+              <label>
+                Age
+                <input id="age" type="number" min="10" max="90" value="20" required>
+              </label>
+              <label>
+                Gender
+                <select id="gender">
+                  <option value="female">Female</option>
+                  <option value="male" selected>Male</option>
+                </select>
+              </label>
+              <label>
+                Height
+                <div class="unit-field">
+                  <input id="height" type="number" min="100" max="230" value="170" required>
+                  <span>cm</span>
+                </div>
+              </label>
+              <label>
+                Weight
+                <div class="unit-field">
+                  <input id="weight" type="number" min="30" max="220" value="75" required>
+                  <span>kg</span>
+                </div>
+              </label>
+            </div>
+
+            <label>
+              Daily Activity Level
+              <select id="activity">
+                <option value="1.2">Sedentary</option>
+                <option value="1.375">Lightly active</option>
+                <option value="1.55" selected>Moderately active</option>
+                <option value="1.725">Very active</option>
+              </select>
+            </label>
+
+            <label>
+              Fitness Goal
+              <select id="goal">
+                <option value="loss" selected>Weight loss</option>
+                <option value="maintain">Maintain fitness</option>
+                <option value="gain">Muscle gain</option>
+              </select>
+            </label>
+
+            <div class="segmented" role="group" aria-label="Diet preference">
+              <input type="radio" name="diet" id="veg" value="veg" checked>
+              <label for="veg">Vegetarian</label>
+              <input type="radio" name="diet" id="nonveg" value="nonveg">
+              <label for="nonveg">Non-veg</label>
+            </div>
+
+            <fieldset>
+              <legend>Health Signals</legend>
+              <label class="check-row">
+                <input id="highSugar" type="checkbox">
+                Frequent high sugar intake
+              </label>
+              <label class="check-row">
+                <input id="lowSleep" type="checkbox">
+                Poor sleep or high stress
+              </label>
+              <label class="check-row">
+                <input id="condition" type="checkbox">
+                Diabetes or heart-risk history
+              </label>
+            </fieldset>
+
+            <div class="range-row">
+              <label for="water">Water glasses per day</label>
+              <output id="waterValue" for="water">6</output>
+            </div>
+            <input id="water" type="range" min="1" max="14" value="6">
+
+            <button class="primary-button" type="submit">Generate Plan</button>
+          </form>
+
+          <section class="results" aria-live="polite">
+            <div class="metrics-grid">
+              <article class="metric-card">
+                <span>BMI</span>
+                <strong id="bmiValue">25.95</strong>
+                <p id="bmiLabel">Slightly overweight</p>
+              </article>
+              <article class="metric-card">
+                <span>Maintenance</span>
+                <strong id="maintenanceCalories">2,577</strong>
+                <p>kcal/day</p>
+              </article>
+              <article class="metric-card">
+                <span>Target</span>
+                <strong id="targetCalories">2,077</strong>
+                <p id="goalLabel">Weight loss calories</p>
+              </article>
+              <article class="metric-card">
+                <span>Water</span>
+                <strong id="waterTarget">9</strong>
+                <p>glasses/day target</p>
+              </article>
+            </div>
+
+            <section class="panel alerts-panel">
+              <div class="panel-heading">
+                <h2>Health Risk Alerts</h2>
+                <span class="mini-badge" id="riskLevel">Moderate</span>
+              </div>
+              <div id="alertsList" class="alert-list"></div>
+            </section>
+
+            <div class="plan-grid">
+              <section class="panel">
+                <div class="panel-heading">
+                  <h2>Diet Plan</h2>
+                  <span class="mini-badge" id="dietBadge">Vegetarian</span>
+                </div>
+                <div id="dietPlan" class="plan-list"></div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-heading">
+                  <h2>Exercise Plan</h2>
+                  <span class="mini-badge" id="workoutBadge">Weight loss</span>
+                </div>
+                <div id="workoutPlan" class="plan-list"></div>
+              </section>
+            </div>
+
+            <section class="panel dashboard-panel">
+              <div class="panel-heading">
+                <h2>Progress Dashboard</h2>
+                <div class="tabs" role="tablist" aria-label="Progress metric">
+                  <button type="button" class="tab active" data-chart="weight">Weight</button>
+                  <button type="button" class="tab" data-chart="bmi">BMI</button>
+                  <button type="button" class="tab" data-chart="calories">Calories</button>
+                </div>
+              </div>
+              <canvas id="progressChart" width="900" height="260" aria-label="Progress chart"></canvas>
+            </section>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
